@@ -11,7 +11,7 @@ type RecordsProps = {
 export function Records(props: RecordsProps) {
   const { records = [] } = props
 
-  return records.length > 0 ? (
+  return (
     <ul className="grid grid-cols-2 gap-6 md:grid-cols-3 md:gap-12 lg:grid-cols-4">
       {records.map((record) => (
         <li key={record._id} className="group relative flex flex-col">
@@ -40,12 +40,5 @@ export function Records(props: RecordsProps) {
         </li>
       ))}
     </ul>
-  ) : (
-    <div className="prose prose-xl mx-auto bg-green-50 p-4">
-      <p>No records found, yet!</p>
-      <p>
-        <a href="/studio">Log in to your Sanity Studio</a> and start creating content!
-      </p>
-    </div>
   )
 }
