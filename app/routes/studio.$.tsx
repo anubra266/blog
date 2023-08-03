@@ -1,18 +1,15 @@
-import type {LinksFunction, V2_MetaFunction} from '@remix-run/node'
-import {ClientOnly} from 'remix-utils'
-import {Studio} from 'sanity'
+import type { LinksFunction, V2_MetaFunction } from '@remix-run/node'
+import { ClientOnly } from 'remix-utils'
+import { Studio } from 'sanity'
 
 import studio from '~/styles/studio.css'
 
-import {config} from '../../sanity.config'
+import { config } from '../../sanity.config'
 
-export const meta: V2_MetaFunction = () => [
-  {title: 'Sanity Studio'},
-  {name: 'robots', content: 'noindex'},
-]
+export const meta: V2_MetaFunction = () => [{ title: 'Sanity Studio' }, { name: 'robots', content: 'noindex' }]
 
 export const links: LinksFunction = () => {
-  return [{rel: 'stylesheet', href: studio}]
+  return [{ rel: 'stylesheet', href: studio }]
 }
 
 export default function StudioPage() {

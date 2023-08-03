@@ -1,42 +1,37 @@
-import type {
-  LinksFunction,
-  LoaderArgs,
-  SerializeFrom,
-  V2_MetaFunction,
-} from '@remix-run/node'
-import {json} from '@remix-run/node'
-import type {RouteMatch} from '@remix-run/react'
-import {useLoaderData} from '@remix-run/react'
+import type { LinksFunction, LoaderArgs, SerializeFrom, V2_MetaFunction } from '@remix-run/node'
+import { json } from '@remix-run/node'
+import type { RouteMatch } from '@remix-run/react'
+import { useLoaderData } from '@remix-run/react'
 import groq from 'groq'
 
-import {PreviewWrapper} from '~/components/PreviewWrapper'
-import {Records} from '~/components/Records'
-import {Title} from '~/components/Title'
-import {deduplicateDrafts} from '~/lib/deduplicateDrafts'
-import {getPreviewToken} from '~/lib/getPreviewToken'
-import {useRootLoaderData} from '~/lib/useRootLoaderData'
-import type {loader as rootLoader} from '~/root'
-import {getClient} from '~/sanity/client'
+import { PreviewWrapper } from '~/components/PreviewWrapper'
+import { Records } from '~/components/Records'
+import { Title } from '~/components/Title'
+import { deduplicateDrafts } from '~/lib/deduplicateDrafts'
+import { getPreviewToken } from '~/lib/getPreviewToken'
+import { useRootLoaderData } from '~/lib/useRootLoaderData'
+import type { loader as rootLoader } from '~/root'
+import { getClient } from '~/sanity/client'
 import tailwind from '~/tailwind.css'
-import {recordStubsZ} from '~/types/record'
+import { recordStubsZ } from '~/types/record'
 
 export const links: LinksFunction = () => {
-  return [{rel: 'stylesheet', href: tailwind}]
+  return [{ rel: 'stylesheet', href: tailwind }]
 }
 
-export const meta: V2_MetaFunction = ({matches}) => {
+export const meta: V2_MetaFunction = ({ matches }) => {
   const rootData = matches.find((match: RouteMatch) => match.id === `root`) as
-    | {data: SerializeFrom<typeof rootLoader>}
+    | { data: SerializeFrom<typeof rootLoader> }
     | undefined
 
   const home = rootData ? rootData.data.home : null
   const title = [home?.title, home?.siteTitle].filter(Boolean).join(' | ')
 
-  return [{title}]
+  return [{ title }]
 }
 
-export const loader = async ({request}: LoaderArgs) => {
-  const {preview} = await getPreviewToken(request)
+export const loader = async ({ request }: LoaderArgs) => {
+  const { preview } = await getPreviewToken(request)
   const query = groq`*[_type == "record"][0...12]|order(title asc){
     _id,
     _type,
@@ -50,13 +45,10 @@ export const loader = async ({request}: LoaderArgs) => {
     .fetch(query)
     .then((res) => (res ? recordStubsZ.parse(res) : null))
 
-  const recordsDeduped =
-    records?.length && preview
-      ? recordStubsZ.parse(deduplicateDrafts(records))
-      : records
+  const recordsDeduped = records?.length && preview ? recordStubsZ.parse(deduplicateDrafts(records)) : records
 
   if (!records) {
-    throw new Response('Not found', {status: 404})
+    throw new Response('Not found', { status: 404 })
   }
 
   return json({
@@ -67,8 +59,8 @@ export const loader = async ({request}: LoaderArgs) => {
 }
 
 export default function Index() {
-  const {records = [], query, params} = useLoaderData<typeof loader>()
-  const {home, query: homeQuery, params: homeParams} = useRootLoaderData()
+  const { records = [], query, params } = useLoaderData<typeof loader>()
+  const { home, query: homeQuery, params: homeParams } = useRootLoaderData()
 
   return (
     <div className="grid grid-cols-1 gap-6 md:gap-12">

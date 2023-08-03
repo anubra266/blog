@@ -1,66 +1,54 @@
-import type {
-  ActionFunction,
-  LinksFunction,
-  LoaderArgs,
-  SerializeFrom,
-  V2_MetaFunction,
-} from '@remix-run/node'
-import {json} from '@remix-run/node'
-import type {RouteMatch} from '@remix-run/react'
-import {useRouteLoaderData} from '@remix-run/react'
-import {
-  isRouteErrorResponse,
-  useLoaderData,
-  useRouteError,
-} from '@remix-run/react'
+import type { ActionFunction, LinksFunction, LoaderArgs, SerializeFrom, V2_MetaFunction } from '@remix-run/node'
+import { json } from '@remix-run/node'
+import type { RouteMatch } from '@remix-run/react'
+import { useRouteLoaderData } from '@remix-run/react'
+import { isRouteErrorResponse, useLoaderData, useRouteError } from '@remix-run/react'
 import groq from 'groq'
 
-import {PreviewWrapper} from '~/components/PreviewWrapper'
-import {Record} from '~/components/Record'
-import {getPreviewToken} from '~/lib/getPreviewToken'
-import type {loader as rootLoader} from '~/root'
-import {OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH} from '~/routes/resource.og'
-import {client, writeClient} from '~/sanity/client'
+import { PreviewWrapper } from '~/components/PreviewWrapper'
+import { Record } from '~/components/Record'
+import { getPreviewToken } from '~/lib/getPreviewToken'
+import type { loader as rootLoader } from '~/root'
+import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from '~/routes/resource.og'
+import { client, writeClient } from '~/sanity/client'
 import styles from '~/styles/app.css'
-import {recordZ} from '~/types/record'
+import { recordZ } from '~/types/record'
 
 export const links: LinksFunction = () => {
-  return [{rel: 'stylesheet', href: styles}]
+  return [{ rel: 'stylesheet', href: styles }]
 }
 
-export const meta: V2_MetaFunction = ({data, matches}) => {
+export const meta: V2_MetaFunction = ({ data, matches }) => {
   const rootData = matches.find((match: RouteMatch) => match.id === `root`) as
-    | {data: SerializeFrom<typeof rootLoader>}
+    | { data: SerializeFrom<typeof rootLoader> }
     | undefined
   const home = rootData ? rootData.data.home : null
-  const title = [data?.record?.title, home?.siteTitle]
-    .filter(Boolean)
-    .join(' | ')
-  const {ogImageUrl} = data
+  const title = [data?.record?.title, home?.siteTitle].filter(Boolean).join(' | ')
+  const { ogImageUrl } = data
 
   return [
-    {title},
-    {property: 'twitter:card', content: 'summary_large_image'},
-    {property: 'twitter:title', content: title},
-    {property: 'og:title', content: title},
-    {property: 'og:image:width', content: String(OG_IMAGE_WIDTH)},
-    {property: 'og:image:height', content: String(OG_IMAGE_HEIGHT)},
-    {property: 'og:image', content: ogImageUrl},
+    { title },
+    { property: 'twitter:card', content: 'summary_large_image' },
+    { property: 'twitter:title', content: title },
+    { property: 'og:title', content: title },
+    { property: 'og:image:width', content: String(OG_IMAGE_WIDTH) },
+    { property: 'og:image:height', content: String(OG_IMAGE_HEIGHT) },
+    { property: 'og:image', content: ogImageUrl },
   ]
 }
 
 // Perform a `like` or `dislike` mutation on a `record` document
-export const action: ActionFunction = async ({request}) => {
+export const action: ActionFunction = async ({ request }) => {
   if (request.method !== 'POST') {
-    throw new Response('Method not allowed', {status: 405})
+    throw new Response('Method not allowed', { status: 405 })
   }
 
-  const {token, projectId} = writeClient.config()
+  const { token, projectId } = writeClient.config()
 
   if (!token) {
     throw new Response(
       `Setup "SANITY_WRITE_TOKEN" with a token with "Editor" permissions to your environment variables. Create one at https://sanity.io/manage/project/${projectId}/api#tokens`,
-      {status: 401}
+      { status: 401 },
     )
   }
 
@@ -73,34 +61,34 @@ export const action: ActionFunction = async ({request}) => {
       case 'LIKE':
         return await writeClient
           .patch(id)
-          .setIfMissing({likes: 0})
-          .inc({likes: 1})
+          .setIfMissing({ likes: 0 })
+          .inc({ likes: 1 })
           .commit()
-          .then(({likes, dislikes}) => ({
+          .then(({ likes, dislikes }) => ({
             likes: likes ?? 0,
             dislikes: dislikes ?? 0,
           }))
       case 'DISLIKE':
         return await writeClient
           .patch(id)
-          .setIfMissing({dislikes: 0})
-          .inc({dislikes: 1})
+          .setIfMissing({ dislikes: 0 })
+          .inc({ dislikes: 1 })
           .commit()
-          .then(({likes, dislikes}) => ({
+          .then(({ likes, dislikes }) => ({
             likes: likes ?? 0,
             dislikes: dislikes ?? 0,
           }))
       default:
-        return json({message: 'Invalid action'}, 400)
+        return json({ message: 'Invalid action' }, 400)
     }
   }
 
-  return json({message: 'Bad request'}, 400)
+  return json({ message: 'Bad request' }, 400)
 }
 
 // Load the `record` document with this slug
-export const loader = async ({params, request}: LoaderArgs) => {
-  const {preview} = await getPreviewToken(request)
+export const loader = async ({ params, request }: LoaderArgs) => {
+  const { preview } = await getPreviewToken(request)
 
   const query = groq`*[_type == "record" && slug.current == $slug][0]{
     _id,
@@ -134,11 +122,11 @@ export const loader = async ({params, request}: LoaderArgs) => {
     .then((res) => (res ? recordZ.parse(res) : null))
 
   if (!record) {
-    throw new Response('Not found', {status: 404})
+    throw new Response('Not found', { status: 404 })
   }
 
   // Create social share image url
-  const {origin} = new URL(request.url)
+  const { origin } = new URL(request.url)
   const ogImageUrl = `${origin}/resource/og?id=${record._id}`
 
   return json({
@@ -150,14 +138,7 @@ export const loader = async ({params, request}: LoaderArgs) => {
 }
 
 export default function RecordPage() {
-  const {record, query, params} = useLoaderData<typeof loader>()
+  const { record, query, params } = useLoaderData<typeof loader>()
 
-  return (
-    <PreviewWrapper
-      data={record}
-      render={Record}
-      query={query}
-      params={params}
-    />
-  )
+  return <PreviewWrapper data={record} render={Record} query={query} params={params} />
 }

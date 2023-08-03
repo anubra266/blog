@@ -1,4 +1,4 @@
-import type {SanityDocumentLike} from 'sanity'
+import type { SanityDocumentLike } from 'sanity'
 
 export function deduplicateDrafts(data: SanityDocumentLike[]) {
   const draftsMap = new Map()

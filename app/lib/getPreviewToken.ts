@@ -1,4 +1,4 @@
-import {getSession} from '~/sessions'
+import { getSession } from '~/sessions'
 
 export async function getPreviewToken(request: Request) {
   const session = await getSession(request.headers.get('Cookie'))
