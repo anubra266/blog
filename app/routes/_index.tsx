@@ -36,8 +36,8 @@ export const loader = async ({ request }: LoaderArgs) => {
     _id,
     _type,
     title,
+    date,
     "slug": slug.current,
-    "artist": artist->title,
     image
   }`
 

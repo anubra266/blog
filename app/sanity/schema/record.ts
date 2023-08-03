@@ -1,6 +1,6 @@
-import {ComposeIcon, MenuIcon, ThListIcon} from '@sanity/icons'
-import {Disc} from 'lucide-react'
-import {defineField, defineType} from 'sanity'
+import { ComposeIcon, ThListIcon } from '@sanity/icons'
+import { Disc } from 'lucide-react'
+import { defineField, defineType } from 'sanity'
 
 export const recordType = defineType({
   name: 'record',
@@ -12,7 +12,7 @@ export const recordType = defineType({
       name: 'rating',
       title: 'Rating',
       description: 'These fields are written to from the Remix front end',
-      options: {columns: 2},
+      options: { columns: 2 },
     },
   ],
   groups: [
@@ -25,11 +25,6 @@ export const recordType = defineType({
       name: 'editorial',
       title: 'Editorial',
       icon: ComposeIcon,
-    },
-    {
-      name: 'tracks',
-      title: 'Tracks',
-      icon: MenuIcon,
     },
   ],
   fields: [
@@ -47,6 +42,14 @@ export const recordType = defineType({
       group: 'details',
     }),
     defineField({
+      name: 'date',
+      type: 'date',
+      group: 'details',
+      validation(rule) {
+        return rule.required()
+      },
+    }),
+    defineField({
       name: 'likes',
       type: 'number',
       readOnly: true,
@@ -58,47 +61,29 @@ export const recordType = defineType({
       readOnly: true,
       fieldset: 'rating',
     }),
-    defineField({
-      name: 'artist',
-      type: 'reference',
-      to: [{type: 'artist'}],
-      group: 'details',
-    }),
-    defineField({
-      name: 'genres',
-      type: 'array',
-      of: [{type: 'reference', to: {type: 'genre'}}],
-      group: 'details',
-    }),
+
     defineField({
       name: 'content',
       type: 'array',
-      of: [{type: 'block'}, {type: 'image'}],
+      of: [{ type: 'block' }, { type: 'image' }],
       group: 'editorial',
     }),
     defineField({
       name: 'image',
       type: 'image',
-      options: {hotspot: true},
+      options: { hotspot: true },
       group: 'editorial',
-    }),
-    defineField({
-      name: 'tracks',
-      type: 'array',
-      of: [{type: 'track'}],
-      group: 'tracks',
     }),
   ],
   preview: {
     select: {
       title: 'title',
-      artist: 'artist.title',
       media: 'image',
     },
-    prepare({title, artist, media}) {
+    prepare({ title, media }) {
       return {
         title,
-        subtitle: artist,
+        // subtitle: artist,
         media,
       }
     },
