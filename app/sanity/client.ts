@@ -1,6 +1,6 @@
-import {createClient} from '@sanity/client'
+import { createClient } from '@sanity/client'
 
-import {projectDetails} from '~/sanity/projectDetails'
+import { projectDetails } from '~/sanity/projectDetails'
 
 export const client = createClient({
   ...projectDetails(),
@@ -13,8 +13,7 @@ export const previewClient = createClient({
   token: process.env.SANITY_READ_TOKEN,
 })
 
-export const getClient = (previewMode = false) =>
-  previewMode ? previewClient : client
+export const getClient = (previewMode = false) => (previewMode ? previewClient : client)
 
 export const writeClient = createClient({
   ...projectDetails(),

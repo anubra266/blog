@@ -1,18 +1,16 @@
-import type {PortableTextComponentProps} from '@portabletext/react'
-import type {SanityImageSource} from '@sanity/asset-utils'
-import {getImageDimensions} from '@sanity/asset-utils'
+import type { PortableTextComponentProps } from '@portabletext/react'
+import type { SanityImageSource } from '@sanity/asset-utils'
+import { getImageDimensions } from '@sanity/asset-utils'
 import urlBuilder from '@sanity/image-url'
 import React from 'react'
 
-import {projectDetails} from '~/sanity/projectDetails'
+import { projectDetails } from '~/sanity/projectDetails'
 
-type SanityImageAssetWithAlt = SanityImageSource & {alt?: string}
+type SanityImageAssetWithAlt = SanityImageSource & { alt?: string }
 
-export function SanityImage(
-  props: PortableTextComponentProps<SanityImageAssetWithAlt>
-) {
-  const {value, isInline} = props
-  const {width, height} = getImageDimensions(value)
+export function SanityImage(props: PortableTextComponentProps<SanityImageAssetWithAlt>) {
+  const { value, isInline } = props
+  const { width, height } = getImageDimensions(value)
 
   return (
     <img

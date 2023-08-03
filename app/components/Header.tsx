@@ -1,5 +1,5 @@
-import {Logo} from '~/components/Logo'
-import {ThemeToggle} from '~/components/ThemeToggle'
+import { Logo } from '~/components/Logo'
+import { ThemeToggle } from '~/components/ThemeToggle'
 
 type HeaderProps = {
   siteTitle?: string | null

@@ -1,4 +1,4 @@
-import type {PropsWithChildren} from 'react'
+import type { PropsWithChildren } from 'react'
 
 export function Title(props: PropsWithChildren) {
   return props.children ? (

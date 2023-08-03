@@ -1,4 +1,4 @@
-import type {SanityDocument} from 'sanity'
+import type { SanityDocument } from 'sanity'
 
 export function resolveOGUrl(doc: SanityDocument) {
   // Studio is a client-side only app so window should be available

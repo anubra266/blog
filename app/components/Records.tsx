@@ -1,15 +1,15 @@
-import {Link} from '@remix-run/react'
+import { Link } from '@remix-run/react'
 import React from 'react'
 
-import {RecordCover} from '~/components/RecordCover'
-import type {RecordStub} from '~/types/record'
+import { RecordCover } from '~/components/RecordCover'
+import type { RecordStub } from '~/types/record'
 
 type RecordsProps = {
   records: RecordStub[]
 }
 
 export function Records(props: RecordsProps) {
-  const {records = []} = props
+  const { records = [] } = props
 
   return records.length > 0 ? (
     <ul className="grid grid-cols-2 gap-6 md:grid-cols-3 md:gap-12 lg:grid-cols-4">
@@ -31,14 +31,10 @@ export function Records(props: RecordsProps) {
                 <span className="absolute inset-0" />
               </Link>
             ) : (
-              <span className="pt-4 text-xl font-bold tracking-tighter">
-                {record.title}
-              </span>
+              <span className="pt-4 text-xl font-bold tracking-tighter">{record.title}</span>
             )}
             {record?.artist ? (
-              <span className="bg-black font-bold leading-none tracking-tighter text-white">
-                {record.artist}
-              </span>
+              <span className="bg-black font-bold leading-none tracking-tighter text-white">{record.artist}</span>
             ) : null}
           </div>
         </li>
@@ -48,8 +44,7 @@ export function Records(props: RecordsProps) {
     <div className="prose prose-xl mx-auto bg-green-50 p-4">
       <p>No records found, yet!</p>
       <p>
-        <a href="/studio">Log in to your Sanity Studio</a> and start creating
-        content!
+        <a href="/studio">Log in to your Sanity Studio</a> and start creating content!
       </p>
     </div>
   )

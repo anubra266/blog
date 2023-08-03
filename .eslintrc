@@ -1,9 +1,5 @@
 {
-  "extends": [
-    "@remix-run/eslint-config",
-    "@remix-run/eslint-config/node",
-    "prettier"
-  ],
+  "extends": ["@remix-run/eslint-config", "@remix-run/eslint-config/node", "prettier"],
   "ignorePatterns": ["node_modules", "build", ".cache"],
   "plugins": ["prettier", "simple-import-sort"],
   "overrides": [
@@ -22,10 +18,14 @@
     "prettier/prettier": [
       "error",
       {
+        "singleQuote": true,
+        "printWidth": 120,
+        "bracketSpacing": true,
+        "jsxSingleQuote": false,
+        "proseWrap": "always",
         "semi": false,
-        "printWidth": 80,
-        "bracketSpacing": false,
-        "singleQuote": true
+        "tabWidth": 2,
+        "trailingComma": "all"
       }
     ]
   }

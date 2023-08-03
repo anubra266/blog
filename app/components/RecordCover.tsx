@@ -1,8 +1,8 @@
-import type {SanityImageObjectStub} from '@sanity/asset-utils'
+import type { SanityImageObjectStub } from '@sanity/asset-utils'
 import urlBuilder from '@sanity/image-url'
 import React from 'react'
 
-import {projectDetails} from '~/sanity/projectDetails'
+import { projectDetails } from '~/sanity/projectDetails'
 
 type RecordCoverProps = {
   title?: string | null
@@ -10,7 +10,7 @@ type RecordCoverProps = {
 }
 
 export function RecordCover(props: RecordCoverProps) {
-  const {title, image} = props
+  const { title, image } = props
 
   return (
     <div className="aspect-square bg-gray-50">

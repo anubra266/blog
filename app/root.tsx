@@ -1,5 +1,5 @@
-import type {LinksFunction, LoaderArgs} from '@remix-run/node'
-import {json} from '@remix-run/node'
+import type { LinksFunction, LoaderArgs } from '@remix-run/node'
+import { json } from '@remix-run/node'
 import {
   Links,
   LiveReload,
@@ -11,20 +11,20 @@ import {
   useLocation,
 } from '@remix-run/react'
 import groq from 'groq'
-import {z} from 'zod'
+import { z } from 'zod'
 
-import {ExitPreview} from '~/components/ExitPreview'
-import {Footer} from '~/components/Footer'
-import {Header} from '~/components/Header'
-import {themePreferenceCookie} from '~/cookies'
-import {getBodyClassNames} from '~/lib/getBodyClassNames'
-import {getPreviewToken} from '~/lib/getPreviewToken'
-import {getClient} from '~/sanity/client'
-import {homeZ} from '~/types/home'
+import { ExitPreview } from '~/components/ExitPreview'
+import { Footer } from '~/components/Footer'
+import { Header } from '~/components/Header'
+import { themePreferenceCookie } from '~/cookies'
+import { getBodyClassNames } from '~/lib/getBodyClassNames'
+import { getPreviewToken } from '~/lib/getPreviewToken'
+import { getClient } from '~/sanity/client'
+import { homeZ } from '~/types/home'
 
 export const links: LinksFunction = () => {
   return [
-    {rel: 'preconnect', href: 'https://cdn.sanity.io'},
+    { rel: 'preconnect', href: 'https://cdn.sanity.io' },
     {
       rel: 'preconnect',
       href: 'https://fonts.gstatic.com',
@@ -42,8 +42,8 @@ export const links: LinksFunction = () => {
   ]
 }
 
-export const loader = async ({request}: LoaderArgs) => {
-  const {token, preview} = await getPreviewToken(request)
+export const loader = async ({ request }: LoaderArgs) => {
+  const { token, preview } = await getPreviewToken(request)
 
   // Dark/light mode
   const cookieHeader = request.headers.get('Cookie')
@@ -81,9 +81,9 @@ export const loader = async ({request}: LoaderArgs) => {
 }
 
 export default function App() {
-  const {ENV, themePreference, home, preview} = useLoaderData<typeof loader>()
+  const { ENV, themePreference, home, preview } = useLoaderData<typeof loader>()
 
-  const {pathname} = useLocation()
+  const { pathname } = useLocation()
   const isStudioRoute = pathname.startsWith('/studio')
   const bodyClassNames = getBodyClassNames(themePreference)
 

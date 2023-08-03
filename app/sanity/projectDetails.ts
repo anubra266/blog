@@ -15,7 +15,7 @@ type ProjectDetails = {
 }
 
 export const projectDetails = (): ProjectDetails => {
-  const {SANITY_PROJECT_ID, SANITY_DATASET, SANITY_API_VERSION} =
+  const { SANITY_PROJECT_ID, SANITY_DATASET, SANITY_API_VERSION } =
     typeof document === 'undefined' ? process.env : window.ENV
 
   return {

@@ -1,14 +1,14 @@
-import type {Params} from '@sanity/preview-kit'
-import {definePreview, PreviewSuspense} from '@sanity/preview-kit'
-import type {ReactNode} from 'react'
-import {isValidElement} from 'react'
+import type { Params } from '@sanity/preview-kit'
+import { definePreview, PreviewSuspense } from '@sanity/preview-kit'
+import type { ReactNode } from 'react'
+import { isValidElement } from 'react'
 
-import {Loading} from '~/components/Loading'
-import {useRootLoaderData} from '~/lib/useRootLoaderData'
-import {projectDetails} from '~/sanity/projectDetails'
+import { Loading } from '~/components/Loading'
+import { useRootLoaderData } from '~/lib/useRootLoaderData'
+import { projectDetails } from '~/sanity/projectDetails'
 
-const {projectId, dataset} = projectDetails()
-const usePreview = definePreview({projectId, dataset})
+const { projectId, dataset } = projectDetails()
+const usePreview = definePreview({ projectId, dataset })
 
 // T default to any
 type PreviewWrapperProps<T> = {
@@ -34,7 +34,7 @@ export function PreviewWrapper<T>(props: PreviewWrapperProps<T>) {
     // And fallback to this while loading
     fallback = <Loading />,
   } = props
-  const {preview, token} = useRootLoaderData()
+  const { preview, token } = useRootLoaderData()
 
   if (!preview || !query) {
     const Component = render(data)
@@ -44,12 +44,7 @@ export function PreviewWrapper<T>(props: PreviewWrapperProps<T>) {
 
   return (
     <PreviewSuspense fallback={fallback}>
-      <PreviewSuspended<typeof data>
-        query={query}
-        render={render}
-        params={params ?? {}}
-        token={token}
-      />
+      <PreviewSuspended<typeof data> query={query} render={render} params={params ?? {}} token={token} />
     </PreviewSuspense>
   )
 }
@@ -63,7 +58,7 @@ type PreviewSuspendedProps<T = any> = {
 
 // Browser-only preview component
 function PreviewSuspended<T = any>(props: PreviewSuspendedProps<T>) {
-  const {query, params = {}, token = null, render} = props
+  const { query, params = {}, token = null, render } = props
   // A `null` token with rely on your Studio's auth in the same browser session
   const previewData = usePreview(token, query, params)
   const Component = render(previewData)
