@@ -1,7 +1,7 @@
 import { Link } from '@remix-run/react'
-import React from 'react'
 
 import { RecordCover } from '~/components/RecordCover'
+import { formatDate } from '~/lib/formatDate'
 import type { RecordStub } from '~/types/record'
 
 type RecordsProps = {
@@ -33,9 +33,9 @@ export function Records(props: RecordsProps) {
             ) : (
               <span className="pt-4 text-xl font-bold tracking-tighter">{record.title}</span>
             )}
-            {record?.artist ? (
-              <span className="bg-black font-bold leading-none tracking-tighter text-white">{record.artist}</span>
-            ) : null}
+            <span className="bg-black font-bold leading-none tracking-tighter text-white">
+              {formatDate(record.date)}
+            </span>
           </div>
         </li>
       ))}

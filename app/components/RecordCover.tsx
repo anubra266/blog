@@ -1,6 +1,5 @@
 import type { SanityImageObjectStub } from '@sanity/asset-utils'
 import urlBuilder from '@sanity/image-url'
-import React from 'react'
 
 import { projectDetails } from '~/sanity/projectDetails'
 

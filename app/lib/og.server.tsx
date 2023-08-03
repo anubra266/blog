@@ -4,6 +4,7 @@ import urlBuilder from '@sanity/image-url'
 import type { SatoriOptions } from 'satori'
 import satori from 'satori'
 
+import { formatDate } from '~/lib/formatDate'
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from '~/routes/resource.og'
 import { projectDetails } from '~/sanity/projectDetails'
 
@@ -12,7 +13,7 @@ const fontSans = (baseUrl: string) =>
   fetch(new URL(`${baseUrl}/fonts/Inter-ExtraBold.otf`)).then((res) => res.arrayBuffer())
 
 export async function generatePngFromDocument(doc: SanityDocument, origin: string) {
-  const { title, artist, image } = doc
+  const { title, date, image } = doc
 
   // Prepare font data and settings for Satori
   const fontSansData = await fontSans(origin)
@@ -54,7 +55,7 @@ export async function generatePngFromDocument(doc: SanityDocument, origin: strin
         }}
       >
         <div style={{ fontSize: 100 }}>{title}</div>
-        {artist?.title ? <div style={{ fontSize: 40 }}>{artist.title}</div> : null}
+        <div style={{ fontSize: 40 }}>{formatDate(date)}</div>
       </div>
       {image?.asset?._ref ? (
         <div

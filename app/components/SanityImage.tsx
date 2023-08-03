@@ -2,7 +2,6 @@ import type { PortableTextComponentProps } from '@portabletext/react'
 import type { SanityImageSource } from '@sanity/asset-utils'
 import { getImageDimensions } from '@sanity/asset-utils'
 import urlBuilder from '@sanity/image-url'
-import React from 'react'
 
 import { projectDetails } from '~/sanity/projectDetails'
 

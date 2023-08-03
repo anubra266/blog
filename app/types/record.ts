@@ -12,7 +12,7 @@ export const recordZ = z.object({
   _id: z.string(),
   title: z.string().nullable(),
   slug: z.string().nullable(),
-  date: z.string().nullable(),
+  date: z.string(),
   likes: z.number(),
   dislikes: z.number(),
   // ...being a touch lazy here, these could be more strongly typed
@@ -28,7 +28,7 @@ export const recordStubZ = z.object({
   _id: z.string(),
   _type: z.string(),
   title: z.string().nullable(),
-  date: z.string().nullable(),
+  date: z.string(),
   slug: z.string().nullable(),
   image: z.any().nullable(),
 })

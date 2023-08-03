@@ -21,7 +21,7 @@ export function Logo(props: LogoProps) {
     <p className="text-lg font-bold tracking-tighter text-black dark:text-white lg:text-2xl">
       <PreviewWrapper
         data={{ siteTitle }}
-        render={({ siteTitle }) => <Link to="/">{siteTitle ?? `Sanity Remix`}</Link>}
+        render={({ siteTitle }) => <Link to="/">{siteTitle ?? `Abraham's mind`}</Link>}
         query={homeQuery}
         params={homeParams}
       />

@@ -1,8 +1,7 @@
 import type { ActionFunction, LinksFunction, LoaderArgs, SerializeFrom, V2_MetaFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import type { RouteMatch } from '@remix-run/react'
-import { useRouteLoaderData } from '@remix-run/react'
-import { isRouteErrorResponse, useLoaderData, useRouteError } from '@remix-run/react'
+import { useLoaderData } from '@remix-run/react'
 import groq from 'groq'
 
 import { PreviewWrapper } from '~/components/PreviewWrapper'
@@ -93,24 +92,12 @@ export const loader = async ({ params, request }: LoaderArgs) => {
   const query = groq`*[_type == "record" && slug.current == $slug][0]{
     _id,
     title,
-    // GROQ can re-shape data in the request!
     "slug": slug.current,
-    "artist": artist->title,
-    // coalesce() returns the first value that is not null
-    // so we can ensure we have at least a zero
+    date,
     "likes": coalesce(likes, 0),
     "dislikes": coalesce(dislikes, 0),
-    // for simplicity in this demo these are typed as "any"
-    // we can make them type-safe with a little more work
-    // https://www.simeongriggs.dev/type-safe-groq-queries-for-sanity-data-with-zod
     image,
-    content,
-    // this is how we extract values from arrays
-    tracks[]{
-      _key,
-      title,
-      duration
-    }
+    content
   }`
 
   const record = await client
