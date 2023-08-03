@@ -20,10 +20,14 @@ import { themePreferenceCookie } from '~/cookies'
 import { getBodyClassNames } from '~/lib/getBodyClassNames'
 import { getPreviewToken } from '~/lib/getPreviewToken'
 import { getClient } from '~/sanity/client'
+import styles from '~/styles/app.css'
+import tailwind from '~/tailwind.css'
 import { homeZ } from '~/types/home'
 
 export const links: LinksFunction = () => {
   return [
+    { rel: 'stylesheet', href: tailwind },
+    { rel: 'stylesheet', href: styles },
     { rel: 'preconnect', href: 'https://cdn.sanity.io' },
     {
       rel: 'preconnect',

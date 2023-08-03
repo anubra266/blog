@@ -1,3 +1,4 @@
+import { codeInput } from '@sanity/code-input'
 import { visionTool } from '@sanity/vision'
 import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
@@ -10,7 +11,7 @@ export const config = defineConfig({
   ...projectDetails(),
   name: 'sanity-remix',
   title: 'Sanity Remix',
-  plugins: [deskTool({ structure, defaultDocumentNode }), visionTool()],
+  plugins: [deskTool({ structure, defaultDocumentNode }), visionTool(), codeInput()],
   basePath: `/studio`,
   schema: {
     types: schema,

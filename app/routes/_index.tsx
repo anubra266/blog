@@ -1,4 +1,4 @@
-import type { LinksFunction, LoaderArgs, SerializeFrom, V2_MetaFunction } from '@remix-run/node'
+import type { LoaderArgs, SerializeFrom, V2_MetaFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import type { RouteMatch } from '@remix-run/react'
 import { useLoaderData } from '@remix-run/react'
@@ -12,12 +12,7 @@ import { getPreviewToken } from '~/lib/getPreviewToken'
 import { useRootLoaderData } from '~/lib/useRootLoaderData'
 import type { loader as rootLoader } from '~/root'
 import { getClient } from '~/sanity/client'
-import tailwind from '~/tailwind.css'
 import { recordStubsZ } from '~/types/record'
-
-export const links: LinksFunction = () => {
-  return [{ rel: 'stylesheet', href: tailwind }]
-}
 
 export const meta: V2_MetaFunction = ({ matches }) => {
   const rootData = matches.find((match: RouteMatch) => match.id === `root`) as
@@ -25,7 +20,7 @@ export const meta: V2_MetaFunction = ({ matches }) => {
     | undefined
 
   const home = rootData ? rootData.data.home : null
-  const title = [home?.title, home?.siteTitle].filter(Boolean).join(' | ')
+  const title = [home?.siteTitle, home?.title].filter(Boolean).join(' | ')
 
   return [{ title }]
 }

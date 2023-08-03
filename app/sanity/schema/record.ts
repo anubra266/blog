@@ -65,7 +65,7 @@ export const recordType = defineType({
     defineField({
       name: 'content',
       type: 'array',
-      of: [{ type: 'block' }, { type: 'image' }],
+      of: [{ type: 'block' }, { type: 'code' }, { type: 'image' }],
       group: 'editorial',
     }),
     defineField({

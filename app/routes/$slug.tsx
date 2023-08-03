@@ -1,4 +1,4 @@
-import type { ActionFunction, LinksFunction, LoaderArgs, SerializeFrom, V2_MetaFunction } from '@remix-run/node'
+import type { ActionFunction, LoaderArgs, SerializeFrom, V2_MetaFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import type { RouteMatch } from '@remix-run/react'
 import { useLoaderData } from '@remix-run/react'
@@ -10,12 +10,7 @@ import { getPreviewToken } from '~/lib/getPreviewToken'
 import type { loader as rootLoader } from '~/root'
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from '~/routes/resource.og'
 import { client, writeClient } from '~/sanity/client'
-import styles from '~/styles/app.css'
 import { recordZ } from '~/types/record'
-
-export const links: LinksFunction = () => {
-  return [{ rel: 'stylesheet', href: styles }]
-}
 
 export const meta: V2_MetaFunction = ({ data, matches }) => {
   const rootData = matches.find((match: RouteMatch) => match.id === `root`) as

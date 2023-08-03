@@ -1,5 +1,6 @@
 import { PortableText } from '@portabletext/react'
 
+import { SanityCode } from '~/components/SanityCode'
 import { SanityImage } from '~/components/SanityImage'
 
 type ContentProps = {
@@ -9,6 +10,7 @@ type ContentProps = {
 const components = {
   types: {
     image: SanityImage,
+    code: SanityCode,
   },
 }
 
