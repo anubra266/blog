@@ -8,10 +8,10 @@ export function Footer() {
     <footer
       className={css({
         borderTopWidth: '1px',
-        borderColor: { base: 'gray.100', _dark: 'gray.900' },
+        borderColor: { base: 'gray.100', _dark: '#272A2EFF' },
         transition: 'colors',
         transitionTimingFunction: 'in.out',
-        transitionDuration: '1000ms',
+        transitionDuration: '200ms',
       })}
     >
       <div

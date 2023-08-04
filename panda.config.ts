@@ -76,7 +76,7 @@ export default defineConfig({
       bg: 'white',
       color: 'black',
       transition: 'colors',
-      transitionDuration: '1000ms',
+      transitionDuration: '200ms',
       transitionTimingFunction: 'ease-in-out',
       _dark: {
         colorScheme: 'dark',

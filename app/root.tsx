@@ -12,12 +12,11 @@ import {
 } from '@remix-run/react'
 import groq from 'groq'
 import { container } from 'styled-system/patterns'
-import { z } from 'zod'
+import { useDarkMode } from 'usehooks-ts'
 
 import { ExitPreview } from '~/components/ExitPreview'
 import { Footer } from '~/components/Footer'
 import { Header } from '~/components/Header'
-import { themePreferenceCookie } from '~/cookies'
 import { getPreviewToken } from '~/lib/getPreviewToken'
 import { getClient } from '~/sanity/client'
 import styles from '~/styles/app.css'
@@ -47,14 +46,6 @@ export const links: LinksFunction = () => {
 export const loader = async ({ request }: LoaderArgs) => {
   const { token, preview } = await getPreviewToken(request)
 
-  // Dark/light mode
-  const cookieHeader = request.headers.get('Cookie')
-  const cookie = (await themePreferenceCookie.parse(cookieHeader)) || {}
-  const themePreference = z
-    .union([z.literal('dark'), z.literal('light')])
-    .optional()
-    .parse(cookie.themePreference)
-
   // Sanity content throughout the site
   const query = groq`*[_id == "home"][0]{
     title,
@@ -70,7 +61,6 @@ export const loader = async ({ request }: LoaderArgs) => {
     query: preview ? query : token,
     params: preview ? {} : null,
     token: preview ? token : null,
-    themePreference,
     ENV: {
       SANITY_PROJECT_ID: process.env.SANITY_PROJECT_ID,
       SANITY_DATASET: process.env.SANITY_DATASET,
@@ -80,14 +70,11 @@ export const loader = async ({ request }: LoaderArgs) => {
 }
 
 export default function App() {
-  const { ENV, themePreference, home, preview } = useLoaderData<typeof loader>()
+  const { ENV, home, preview } = useLoaderData<typeof loader>()
 
   const { pathname } = useLocation()
   const isStudioRoute = pathname.startsWith('/studio')
-  const isDarkMode =
-    !themePreference && typeof document !== 'undefined'
-      ? window.matchMedia('(prefers-color-scheme: dark)').matches
-      : themePreference === `dark`
+  const { isDarkMode } = useDarkMode(true)
 
   return (
     <html lang="en" className={isDarkMode ? 'dark' : 'light'}>

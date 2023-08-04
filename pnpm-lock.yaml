@@ -83,6 +83,9 @@ dependencies:
   styled-components:
     specifier: ^5.3.6
     version: 5.3.6(@babel/core@7.22.9)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)
+  usehooks-ts:
+    specifier: ^2.9.1
+    version: 2.9.1(react-dom@18.2.0)(react@18.2.0)
   zod:
     specifier: ^3.19.1
     version: 3.19.1
