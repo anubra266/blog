@@ -14,10 +14,6 @@ export function Logo(props: LogoProps) {
 
   const { siteTitle } = props
 
-  if (siteTitle && typeof document !== `undefined`) {
-    console.info(`Create and publish "home" document in Sanity Studio at ${window.origin}/studio/desk/home`)
-  }
-
   return (
     <p
       className={css({

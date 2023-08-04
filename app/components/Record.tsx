@@ -1,7 +1,7 @@
 import { css } from 'styled-system/css'
 import { flex, grid } from 'styled-system/patterns'
 
-import { LikeDislike } from '~/components/LikeDislike'
+import { PostActions } from '~/components/PostActions'
 import { RecordCover } from '~/components/RecordCover'
 import { SanityContent } from '~/components/SanityContent'
 import { Title } from '~/components/Title'
@@ -9,7 +9,7 @@ import { formatDate } from '~/lib/formatDate'
 import type { RecordDocument } from '~/types/record'
 
 export function Record(props: RecordDocument) {
-  const { _id, title, content, image, date, likes, dislikes } = props
+  const { title, content, image, date } = props
 
   return (
     <article
@@ -17,7 +17,7 @@ export function Record(props: RecordDocument) {
     >
       <div className={grid({ mx: 'auto', display: 'grid', maxW: '70vw', gridTemplateColumns: '1' })}>
         <RecordCover image={image} title={title} />
-        <LikeDislike id={_id} likes={likes} dislikes={dislikes} />
+        <PostActions />
       </div>
       <div
         className={flex({

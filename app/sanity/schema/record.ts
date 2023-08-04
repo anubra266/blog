@@ -50,18 +50,6 @@ export const recordType = defineType({
       group: 'details',
       validation: (Rule) => Rule.required(),
     }),
-    defineField({
-      name: 'likes',
-      type: 'number',
-      readOnly: true,
-      fieldset: 'rating',
-    }),
-    defineField({
-      name: 'dislikes',
-      type: 'number',
-      readOnly: true,
-      fieldset: 'rating',
-    }),
 
     defineField({
       name: 'content',

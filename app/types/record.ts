@@ -13,8 +13,6 @@ export const recordZ = z.object({
   title: z.string(),
   slug: z.string(),
   date: z.string(),
-  likes: z.number(),
-  dislikes: z.number(),
   // ...being a touch lazy here, these could be more strongly typed
   image: z.any().nullable(),
   content: z.array(z.any()),
