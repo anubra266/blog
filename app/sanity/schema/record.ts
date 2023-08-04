@@ -32,12 +32,15 @@ export const recordType = defineType({
       name: 'title',
       type: 'string',
       group: 'details',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'slug',
       type: 'slug',
+      validation: (Rule) => Rule.required(),
       options: {
         source: 'title',
+        maxLength: 96,
       },
       group: 'details',
     }),
@@ -45,9 +48,7 @@ export const recordType = defineType({
       name: 'date',
       type: 'date',
       group: 'details',
-      validation(rule) {
-        return rule.required()
-      },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'likes',
@@ -67,6 +68,7 @@ export const recordType = defineType({
       type: 'array',
       of: [{ type: 'block' }, { type: 'code' }, { type: 'image' }],
       group: 'editorial',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'image',

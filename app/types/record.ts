@@ -10,8 +10,8 @@ import { z } from 'zod'
 // without being limited to the shape of your Sanity Schema
 export const recordZ = z.object({
   _id: z.string(),
-  title: z.string().nullable(),
-  slug: z.string().nullable(),
+  title: z.string(),
+  slug: z.string(),
   date: z.string(),
   likes: z.number(),
   dislikes: z.number(),
@@ -27,9 +27,9 @@ export const recordsZ = z.array(recordZ)
 export const recordStubZ = z.object({
   _id: z.string(),
   _type: z.string(),
-  title: z.string().nullable(),
+  title: z.string(),
   date: z.string(),
-  slug: z.string().nullable(),
+  slug: z.string(),
   image: z.any().nullable(),
 })
 
