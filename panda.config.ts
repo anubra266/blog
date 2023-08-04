@@ -13,6 +13,7 @@ export default defineConfig({
           link: 'prose.link',
           body: 'prose.body',
           heading: 'prose.body',
+          code: 'prose.code',
           // lead: 'slate.600',
           // counter: 'slate.500',
           // bullet: 'slate.300',
@@ -21,7 +22,6 @@ export default defineConfig({
           // quoteBorder: 'slate.200',
           // caption: 'slate.500',
           // bold: 'slate.900',
-          // code: 'slate.900',
           // preCode: 'slate.200',
           // preBackground: 'slate.800',
           // thBorder: 'slate.300',
@@ -49,6 +49,12 @@ export default defineConfig({
               value: {
                 base: '{colors.black}',
                 _dark: '{colors.white}',
+              },
+            },
+            code: {
+              value: {
+                base: '{colors.slate.900}',
+                _dark: '{colors.slate.400}',
               },
             },
           },
