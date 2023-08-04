@@ -1,3 +1,3 @@
 # My personal blog
 
-Built with Sanity
+Built with [Sanity](https://sanity.io) and [Panda CSS](https://panda-css.com/)
