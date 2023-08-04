@@ -1,5 +1,7 @@
 import type { SanityImageObjectStub } from '@sanity/asset-utils'
 import urlBuilder from '@sanity/image-url'
+import { css } from 'styled-system/css'
+import { flex } from 'styled-system/patterns'
 
 import { projectDetails } from '~/sanity/projectDetails'
 
@@ -12,10 +14,25 @@ export function RecordCover(props: RecordCoverProps) {
   const { title, image } = props
 
   return (
-    <div className="aspect-square bg-gray-50">
+    <div
+      className={flex({
+        aspectRatio: 'square',
+        bg: 'gray.50',
+      })}
+    >
       {image ? (
         <img
-          className="h-auto w-full object-cover shadow-black transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-cyan-200"
+          className={css({
+            h: 'auto',
+            w: 'full',
+            objectFit: 'cover',
+            shadowColor: 'black',
+            transition: 'all 300ms ease-in-out',
+            _groupHover: {
+              shadow: '2xl',
+              shadowColor: 'cyan.200',
+            },
+          })}
           src={urlBuilder(projectDetails())
             // @ts-ignore
             .image(image.asset._ref)
@@ -28,7 +45,16 @@ export function RecordCover(props: RecordCoverProps) {
           loading="lazy"
         />
       ) : (
-        <div className="flex aspect-square w-full items-center justify-center bg-gray-100 text-gray-500">
+        <div
+          className={flex({
+            aspectRatio: 'square',
+            w: 'full',
+            align: 'center',
+            justify: 'center',
+            bg: 'rgb(230 232 236)',
+            color: 'gray.500',
+          })}
+        >
           {title ?? `Missing Record art`}
         </div>
       )}

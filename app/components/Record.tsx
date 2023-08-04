@@ -1,3 +1,6 @@
+import { css } from 'styled-system/css'
+import { flex, grid } from 'styled-system/patterns'
+
 import { LikeDislike } from '~/components/LikeDislike'
 import { RecordCover } from '~/components/RecordCover'
 import { SanityContent } from '~/components/SanityContent'
@@ -9,15 +12,35 @@ export function Record(props: RecordDocument) {
   const { _id, title, content, image, date, likes, dislikes } = props
 
   return (
-    <article className="flex flex-col items-start gap-4 lg:flex-row lg:gap-12">
-      <div className="grid-gap-4 mx-auto grid max-w-[70vw] grid-cols-1">
+    <article
+      className={flex({ direction: { base: 'column', lg: 'row' }, align: 'start', gap: { base: '4', lg: '12' } })}
+    >
+      <div className={grid({ mx: 'auto', display: 'grid', maxW: '70vw', gridTemplateColumns: '1' })}>
         <RecordCover image={image} title={title} />
         <LikeDislike id={_id} likes={likes} dislikes={dislikes} />
       </div>
-      <div className="flex flex-shrink-0 flex-col gap-4 md:gap-6 lg:w-2/3">
+      <div
+        className={flex({
+          display: 'flex',
+          shrink: '0',
+          direction: 'column',
+          gap: { base: '4', md: '12' },
+          lg: { w: '2/3' },
+        })}
+      >
         <header>
           {title ? <Title>{title}</Title> : null}
-          <h2 className="bg-black text-2xl font-bold tracking-tighter text-white">{formatDate(date)}</h2>
+          <h2
+            className={css({
+              bgColor: { _light: 'black' },
+              textStyle: '2xl',
+              fontWeight: 'bold',
+              letterSpacing: 'tighter',
+              color: 'white',
+            })}
+          >
+            {formatDate(date)}
+          </h2>
         </header>
         {content && content?.length > 0 ? <SanityContent value={content} /> : null}
       </div>

@@ -1,5 +1,6 @@
 import type { SerializeFrom } from '@remix-run/node'
 import { Link, useRouteLoaderData } from '@remix-run/react'
+import { css } from 'styled-system/css'
 
 import { PreviewWrapper } from '~/components/PreviewWrapper'
 import type { loader as rootLoader } from '~/root'
@@ -18,7 +19,15 @@ export function Logo(props: LogoProps) {
   }
 
   return (
-    <p className="text-lg font-bold tracking-tighter text-black dark:text-white lg:text-2xl">
+    <p
+      className={css({
+        textStyle: { base: 'lg', lg: '2xl' },
+        fontWeight: 'bold',
+        letterSpacing: 'tighter',
+        color: 'black',
+        _dark: { color: 'white' },
+      })}
+    >
       <PreviewWrapper
         data={{ siteTitle }}
         render={({ siteTitle }) => <Link to="/">{siteTitle ?? `Abraham's mind`}</Link>}

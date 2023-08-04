@@ -1,5 +1,7 @@
 import { useFetcher, useLocation } from '@remix-run/react'
 import { ThumbsDown, ThumbsUp } from 'lucide-react'
+import { css, cva } from 'styled-system/css'
+import { flex } from 'styled-system/patterns'
 
 type LikeDislikeProps = {
   id: string
@@ -27,34 +29,46 @@ export function LikeDislike(props: LikeDislikeProps) {
   return (
     <fetcher.Form
       action={location.pathname}
-      className="flex items-center justify-center gap-4 bg-black text-white"
+      className={flex({
+        align: 'center',
+        justify: 'center',
+        gap: '4',
+        bgColor: 'black',
+        color: 'white',
+      })}
       method="post"
     >
       <input name="id" type="hidden" value={id} />
-      <button
-        name="action"
-        type="submit"
-        value="LIKE"
-        disabled={isWorking}
-        className="flex items-center gap-2 bg-black p-4 transition-all duration-100 ease-in-out hover:bg-cyan-400 hover:text-black disabled:opacity-50"
-        title="Like"
-      >
-        <span className="text-xs font-bold">{displayLikes}</span>
+      <button name="action" type="submit" value="LIKE" disabled={isWorking} title="Like" className={button()}>
+        <span className={css({ textStyle: 'xs', fontWeight: 'bold' })}>{displayLikes}</span>
         <ThumbsUp />
-        <span className="sr-only">Like</span>
+        <span className={css({ srOnly: true })}>Like</span>
       </button>
-      <button
-        name="action"
-        type="submit"
-        value="DISLIKE"
-        disabled={isWorking}
-        className="flex items-center gap-2 bg-black p-4 transition-all duration-100 ease-in-out hover:bg-cyan-400 hover:text-black disabled:opacity-50"
-        title="Dislike"
-      >
+      <button name="action" type="submit" value="DISLIKE" disabled={isWorking} title="Dislike" className={button()}>
         <ThumbsDown />
-        <span className="text-xs font-bold">{displayDislikes}</span>
-        <span className="sr-only">Dislike</span>
+        <span className={css({ textStyle: 'xs', fontWeight: 'bold' })}>{displayDislikes}</span>
+        <span className={css({ srOnly: true })}>Dislike</span>
       </button>
     </fetcher.Form>
   )
 }
+
+const button = cva({
+  base: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '2',
+    bgColor: 'black',
+    color: 'white',
+    p: '4',
+    transition: 'all 100ms ease-in-out',
+    cursor: 'pointer',
+    _hover: {
+      bgColor: 'cyan.400',
+      color: 'black',
+    },
+    _disabled: {
+      opacity: 0.5,
+    },
+  },
+})

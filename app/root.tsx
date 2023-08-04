@@ -11,22 +11,20 @@ import {
   useLocation,
 } from '@remix-run/react'
 import groq from 'groq'
+import { container } from 'styled-system/patterns'
 import { z } from 'zod'
 
 import { ExitPreview } from '~/components/ExitPreview'
 import { Footer } from '~/components/Footer'
 import { Header } from '~/components/Header'
 import { themePreferenceCookie } from '~/cookies'
-import { getBodyClassNames } from '~/lib/getBodyClassNames'
 import { getPreviewToken } from '~/lib/getPreviewToken'
 import { getClient } from '~/sanity/client'
 import styles from '~/styles/app.css'
-import tailwind from '~/tailwind.css'
 import { homeZ } from '~/types/home'
 
 export const links: LinksFunction = () => {
   return [
-    { rel: 'stylesheet', href: tailwind },
     { rel: 'stylesheet', href: styles },
     { rel: 'preconnect', href: 'https://cdn.sanity.io' },
     {
@@ -71,9 +69,6 @@ export const loader = async ({ request }: LoaderArgs) => {
     preview,
     query: preview ? query : token,
     params: preview ? {} : null,
-    // Note: This makes the token available to the client if they have an active session
-    // This is useful to show live preview to unauthenticated users
-    // If you would rather not, replace token with `null` and it will rely on your Studio auth
     token: preview ? token : null,
     themePreference,
     ENV: {
@@ -89,10 +84,13 @@ export default function App() {
 
   const { pathname } = useLocation()
   const isStudioRoute = pathname.startsWith('/studio')
-  const bodyClassNames = getBodyClassNames(themePreference)
+  const isDarkMode =
+    !themePreference && typeof document !== 'undefined'
+      ? window.matchMedia('(prefers-color-scheme: dark)').matches
+      : themePreference === `dark`
 
   return (
-    <html lang="en">
+    <html lang="en" className={isDarkMode ? 'dark' : 'light'}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -103,13 +101,13 @@ export default function App() {
         <Links />
         {isStudioRoute && typeof document === 'undefined' ? '__STYLES__' : null}
       </head>
-      <body className={bodyClassNames}>
+      <body>
         {isStudioRoute ? (
           <Outlet />
         ) : (
           <>
             <Header siteTitle={home?.siteTitle} />
-            <div className="container mx-auto p-4 lg:p-12">
+            <div className={container({ px: '6', py: '12', lg: { px: '32' } })}>
               <Outlet />
             </div>
             <Footer />

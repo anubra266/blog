@@ -1,4 +1,6 @@
 import { PortableText } from '@portabletext/react'
+import { css, cx } from 'styled-system/css'
+import { prose } from 'styled-system/recipes'
 
 import { SanityCode } from '~/components/SanityCode'
 import { SanityImage } from '~/components/SanityImage'
@@ -18,7 +20,7 @@ export function SanityContent(props: ContentProps) {
   const { value } = props
 
   return (
-    <div className="prose font-serif dark:prose-invert md:prose-2xl prose-a:text-cyan-600 dark:prose-a:text-cyan-200">
+    <div className={cx(prose({ size: { md: '2xl' } }), css({ fontFamily: '"PT Serif", serif' }))}>
       <PortableText value={value} components={components} />
     </div>
   )

@@ -2,6 +2,7 @@ import type { PortableTextComponentProps } from '@portabletext/react'
 import type { SanityImageSource } from '@sanity/asset-utils'
 import { getImageDimensions } from '@sanity/asset-utils'
 import urlBuilder from '@sanity/image-url'
+import { css } from 'styled-system/css'
 
 import { projectDetails } from '~/sanity/projectDetails'
 
@@ -13,7 +14,7 @@ export function SanityImage(props: PortableTextComponentProps<SanityImageAssetWi
 
   return (
     <img
-      className="not-prose h-auto w-full"
+      className={css({ h: 'auto', w: 'full' })}
       src={urlBuilder(projectDetails())
         .image(value)
         .width(isInline ? 100 : 800)

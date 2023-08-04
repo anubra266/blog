@@ -1,4 +1,6 @@
 import { Link } from '@remix-run/react'
+import { css, cx } from 'styled-system/css'
+import { flex, grid } from 'styled-system/patterns'
 
 import { RecordCover } from '~/components/RecordCover'
 import { formatDate } from '~/lib/formatDate'
@@ -12,28 +14,89 @@ export function Records(props: RecordsProps) {
   const { records = [] } = props
 
   return (
-    <ul className="grid grid-cols-2 gap-6 md:grid-cols-3 md:gap-12 lg:grid-cols-4">
+    <ul
+      className={grid({
+        gridTemplateColumns: { base: '2', md: '3', lg: '4' },
+        gap: { base: '6', md: '12' },
+      })}
+    >
       {records.map((record) => (
-        <li key={record._id} className="group relative flex flex-col">
-          <div className="relative overflow-hidden transition-all duration-200 ease-in-out group-hover:scale-105 group-hover:opacity-90">
-            <div className="absolute z-0 h-48 w-[200%] translate-x-20 translate-y-20 -rotate-45 bg-gradient-to-b from-white to-transparent opacity-25 mix-blend-overlay transition-transform duration-500 ease-in-out group-hover:translate-x-10 group-hover:translate-y-10 group-hover:opacity-75" />
+        <li key={record._id} className={cx('group', flex({ position: 'relative', direction: 'column' }))}>
+          <div
+            className={css({
+              position: 'relative',
+              overflow: 'hidden',
+              transition: 'all 200ms ease-in-out',
+              _groupHover: { transform: 'scale(1.05)', opacity: 0.9 },
+            })}
+          >
+            <div
+              className={css({
+                position: 'absolute',
+                zIndex: '0',
+                h: '48',
+                w: '200%',
+                translate: 'auto',
+                '--translate-x': '2.3rem',
+                '--translate-y': '2.3rem',
+                '--rotate': '-45deg',
+                transform: 'translate(var(--translate-x), var(--translate-y)) rotate(var(--rotate))',
+                bgGradient: 'to-b',
+                gradientFrom: 'white',
+                gradientTo: 'transparent',
+                opacity: 0.25,
+                mixBlendMode: 'overlay',
+                transition: 'transform 500ms cubic-bezier(.4,0,.2,1)',
+                _groupHover: {
+                  '--translate-x': '1.5rem',
+                  '--translate-y': '1.5rem',
+                  opacity: 0.75,
+                },
+              })}
+            />
             <RecordCover image={record.image} title={record.title} />
           </div>
-          <div className="flex flex-col">
+          <div className={flex({ direction: 'column' })}>
             {record?.slug ? (
               <Link
                 prefetch="intent"
                 to={record?.slug}
-                className="text-bold pt-4 text-xl font-bold tracking-tighter transition-colors duration-100 ease-in-out hover:bg-cyan-400 hover:text-white md:text-3xl"
+                className={css({
+                  pt: '4',
+                  textStyle: { base: 'xl', md: '3xl' },
+                  fontWeight: 'bold',
+                  letterSpacing: 'tighter',
+                  transition: 'colors',
+                  transitionTimingFunction: 'ease-in-out',
+                  transitionDuration: '100',
+                  _hover: { bgColor: 'cyan.400', color: 'white' },
+                })}
               >
                 {record.title}
                 {/* Makes this entire block clickable */}
-                <span className="absolute inset-0" />
+                <span className={css({ pos: 'absolute', inset: '0' })} />
               </Link>
             ) : (
-              <span className="pt-4 text-xl font-bold tracking-tighter">{record.title}</span>
+              <span
+                className={css({
+                  pt: '4',
+                  textStyle: 'xl',
+                  fontWeight: 'bold',
+                  letterSpacing: 'tighter',
+                })}
+              >
+                {record.title}
+              </span>
             )}
-            <span className="bg-black font-bold leading-none tracking-tighter text-white">
+            <span
+              className={css({
+                bgColor: 'black',
+                fontWeight: 'bold',
+                lineHeight: 'none',
+                letterSpacing: 'tighter',
+                color: 'white',
+              })}
+            >
               {formatDate(record.date)}
             </span>
           </div>

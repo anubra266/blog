@@ -1,13 +1,43 @@
+import { css } from 'styled-system/css'
+import { container, flex } from 'styled-system/patterns'
+
 import { Logo } from '~/components/Logo'
 
 export function Footer() {
   return (
-    <header className="border-t border-gray-100 transition-colors duration-1000 ease-in-out dark:border-gray-900">
-      <div className="container mx-auto flex items-center justify-between p-4 lg:px-12">
+    <footer
+      className={css({
+        borderTopWidth: '1px',
+        borderColor: { base: 'gray.100', _dark: 'gray.900' },
+        transition: 'colors',
+        transitionTimingFunction: 'in.out',
+        transitionDuration: '1000ms',
+      })}
+    >
+      <div
+        className={container({
+          display: 'flex',
+          mx: 'auto',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          p: '6',
+          lg: { px: '32' },
+        })}
+      >
         <Logo />
-        <div className="flex flex-1 flex-col items-end justify-end gap-2 text-sm md:flex-row md:items-center md:gap-5">
+        <div
+          className={flex({
+            flex: '1',
+            flexDir: { base: 'column', md: 'row' },
+            align: { base: 'flex-end', md: 'center' },
+            justify: 'flex-end',
+            gap: { base: '2', md: '5' },
+            fontSize: 'sm',
+            lineHeight: 'sm',
+          })}
+        >
           <a
-            className="hover:text-cyan-600 dark:hover:text-cyan-200"
+            className={css({ _hover: { color: 'cyan.600', _dark: { color: 'cyan.200' } } })}
             href="https://x.com/anubra266"
             target="_blank"
             rel="noreferrer"
@@ -15,7 +45,7 @@ export function Footer() {
             Twitter / X
           </a>
           <a
-            className="hover:text-cyan-600 dark:hover:text-cyan-200"
+            className={css({ _hover: { color: 'cyan.600', _dark: { color: 'cyan.200' } } })}
             href="https://github.com/anubra266"
             target="_blank"
             rel="noreferrer"
@@ -24,6 +54,6 @@ export function Footer() {
           </a>
         </div>
       </div>
-    </header>
+    </footer>
   )
 }

@@ -3,6 +3,7 @@ import { json } from '@remix-run/node'
 import type { RouteMatch } from '@remix-run/react'
 import { useLoaderData } from '@remix-run/react'
 import groq from 'groq'
+import { grid } from 'styled-system/patterns'
 
 import { PreviewWrapper } from '~/components/PreviewWrapper'
 import { Records } from '~/components/Records'
@@ -58,7 +59,7 @@ export default function Index() {
   const { home, query: homeQuery, params: homeParams } = useRootLoaderData()
 
   return (
-    <div className="grid grid-cols-1 gap-6 md:gap-12">
+    <div className={grid({ gridTemplateColumns: '1', gap: { base: '6', md: '12' } })}>
       <PreviewWrapper
         data={home}
         render={(data) => (data?.title ? <Title>{data.title}</Title> : null)}
