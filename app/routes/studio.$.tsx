@@ -6,7 +6,7 @@ import studio from '~/styles/studio.css'
 
 import { config } from '../../sanity.config'
 
-export const meta: V2_MetaFunction = () => [{ title: 'Sanity Studio' }, { name: 'robots', content: 'noindex' }]
+export const meta: V2_MetaFunction = () => [{ title: 'Studio' }, { name: 'robots', content: 'noindex' }]
 
 export const links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: studio }]

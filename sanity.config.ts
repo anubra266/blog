@@ -9,8 +9,8 @@ import { defaultDocumentNode, structure } from '~/sanity/structure'
 
 export const config = defineConfig({
   ...projectDetails(),
-  name: 'sanity-remix',
-  title: 'Sanity Remix',
+  name: 'abrahams-mind',
+  title: "Abraham's mind",
   plugins: [deskTool({ structure, defaultDocumentNode }), visionTool(), codeInput()],
   basePath: `/studio`,
   schema: {
