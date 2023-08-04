@@ -10,12 +10,12 @@ import { z } from 'zod'
 // without being limited to the shape of your Sanity Schema
 export const recordZ = z.object({
   _id: z.string(),
-  title: z.string(),
-  slug: z.string(),
-  date: z.string(),
+  title: z.string().nullable(),
+  slug: z.string().nullable(),
+  date: z.string().nullable(),
   // ...being a touch lazy here, these could be more strongly typed
   image: z.any().nullable(),
-  content: z.array(z.any()),
+  content: z.array(z.any()).nullable(),
 })
 
 export type RecordDocument = z.infer<typeof recordZ>
@@ -25,9 +25,9 @@ export const recordsZ = z.array(recordZ)
 export const recordStubZ = z.object({
   _id: z.string(),
   _type: z.string(),
-  title: z.string(),
-  date: z.string(),
-  slug: z.string(),
+  title: z.string().nullable(),
+  date: z.string().nullable(),
+  slug: z.string().nullable(),
   image: z.any().nullable(),
 })
 

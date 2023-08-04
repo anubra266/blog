@@ -120,7 +120,7 @@ function PostItem({ post }: { post: RecordStub }) {
             color: 'white',
           })}
         >
-          {formatDate(post.date)}
+          {post.date && formatDate(post.date)}
         </span>
       </div>
     </li>

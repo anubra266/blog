@@ -39,7 +39,7 @@ export function Record(props: RecordDocument) {
               color: 'white',
             })}
           >
-            {formatDate(date)}
+            {date && formatDate(date)}
           </h2>
         </header>
         {content && content?.length > 0 ? <SanityContent value={content} /> : null}
