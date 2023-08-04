@@ -10,7 +10,7 @@ export default defineConfig({
     typographyPreset({
       prose: {
         colors: {
-          link: 'prose.ink',
+          link: 'prose.link',
           body: 'prose.body',
           heading: 'prose.body',
           // lead: 'slate.600',

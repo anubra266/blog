@@ -17,7 +17,7 @@ export const recordZ = z.object({
   dislikes: z.number(),
   // ...being a touch lazy here, these could be more strongly typed
   image: z.any().nullable(),
-  content: z.array(z.any()).nullable(),
+  content: z.array(z.any()),
 })
 
 export type RecordDocument = z.infer<typeof recordZ>
