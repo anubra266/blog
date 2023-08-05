@@ -17,7 +17,7 @@ export function Record(props: RecordDocument) {
     >
       <div className={grid({ mx: 'auto', display: 'grid', maxW: '70vw', gridTemplateColumns: '1' })}>
         <RecordCover image={image} title={title} />
-        <PostActions />
+        <PostActions slug={props.slug} />
       </div>
       <div
         className={flex({

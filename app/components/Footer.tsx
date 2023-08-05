@@ -38,6 +38,12 @@ export function Footer() {
         >
           <a
             className={css({ _hover: { color: 'cyan.600', _dark: { color: 'cyan.200' } } })}
+            href="mailto:anubra266@gmail.com"
+          >
+            Email
+          </a>
+          <a
+            className={css({ _hover: { color: 'cyan.600', _dark: { color: 'cyan.200' } } })}
             href="https://x.com/anubra266"
             target="_blank"
             rel="noreferrer"
