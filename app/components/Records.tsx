@@ -13,19 +13,6 @@ type RecordsProps = {
 export function Records(props: RecordsProps) {
   const { records = [] } = props
 
-  const { me, posts } = records.reduce(
-    (result, obj) => {
-      const { slug } = obj
-      if (slug === 'anubra266') {
-        result.me = obj
-      } else {
-        result.posts.push(obj)
-      }
-      return result
-    },
-    { me: {} as RecordStub, posts: [] as RecordStub[] },
-  )
-
   return (
     <ul
       className={grid({
@@ -33,9 +20,7 @@ export function Records(props: RecordsProps) {
         gap: { base: '6', md: '12' },
       })}
     >
-      <PostItem post={me} />
-
-      {posts.map((post) => (
+      {records.map((post) => (
         <PostItem key={post._id} post={post} />
       ))}
     </ul>
